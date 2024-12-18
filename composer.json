@@ -1,0 +1,8 @@
+{
+    "name": "lawyers_site/project",
+    "description": "A simple project",
+    "type": "project",
+    "require": {
+      "phpunit/phpunit": "^9.6"
+    }
+  }

@@ -1,0 +1,745 @@
+/* Стили для всего тела документа */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Основной блок контента */
+main {
+    padding: 20px;
+}
+
+/* Футер */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px ;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 50px; /* Задаём отступ сверху (от других элементов) */
+}
+
+/* Основные стили для модального окна */
+.loginmodal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Содержимое модального окна */
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    height: 400 px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slide-down 0.3s ease-out;
+    position: relative;
+    flex-direction: column; /* Размещаем элементы по вертикали */
+    align-items: center; /* Центрируем элементы по горизонтали */
+    justify-content: center; /* Центрируем элементы по вертикали */
+    text-align: center; /* Центрируем текст внутри */
+}
+
+
+/* Кнопка закрытия */
+.close,
+.close-update{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus,
+.close-update:hover,
+.close-update:focus {
+    color: #000;
+}
+
+/* Анимация появления */
+@keyframes slide-down {
+    from {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Стили для формы авторизации */
+.auth-container {
+    text-align: center; /* Центрирует текст в контейнере формы */
+}
+
+.loginmodal form {
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Обеспечивает полную ширину для flex-контейнера */
+}
+
+.loginmodal h2,
+.loginmodal p,
+.loginmodal input[type="text"],
+.loginmodal input[type="password"],
+.loginmodal button[type="submit"] {
+    width: 80%;
+    margin: 10px auto; /* Центрирует элементы внутри формы */
+    box-sizing: border-box;
+}
+
+.loginmodal input[type="text"],
+.loginmodal input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.loginmodal button[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.loginmodal button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.loginmodal p a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.modal-content p a:hover {
+    text-decoration: underline;
+}
+
+
+/* Стили для формы регистрации */
+.registration-form {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 100px;
+}
+
+.registration-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.registration-form input[type="text"],
+.registration-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.registration-form input[type="text"]:focus,
+.registration-form input[type="email"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.registration-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+.registration-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для всего блока инпутов */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Стили для выпадающего списка услуги */
+.input-group select,
+.registration-form input[type="text"],
+.registration-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.input-group select:focus,
+.registration-form input[type="text"]:focus,
+.registration-form input[type="email"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Стили для выпадающего списка */
+.registration-form select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+
+
+/* Стили для отображения ошибок */
+.error {
+    color: #ff0000;
+    font-size: 0.9em;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    display: block;
+}
+/* Стили для удачного заполнения формы */
+#successMessage {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: default;
+}
+
+/* Стили для меню навигации */
+nav {
+    background-color: #444;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center; /* Центрируем пункты меню */
+    align-items: center;
+    position: relative; /* Добавляем позиционирование для кнопок */
+}
+
+/* Стили для списка навигации */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+/* Стили для кнопок регистрации и входа */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto; /* Сдвигаем кнопки вправо */
+    position: absolute; /* Абсолютное позиционирование */
+    right: 15px; /* Отступ от правого края */
+}
+
+/* Стиль для кнопки "Регистрация" */
+.auth-button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+/* Стиль для кнопки "Выход" */
+.exit-button {
+    padding: 10px 30px;
+    background-color: #444;
+    color: white;
+    border: 2px solid white;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+    background-color: #555;
+}
+
+/* Индивидуальный стиль для кнопки "Вход" */
+#loginBtn {
+    padding: 10px 30px; /* Увеличиваем ширину кнопки "Вход" */
+    background-color: #28a745;
+    box-shadow: 0px 0px 10px rgba(40, 167, 69, 0.6);
+}
+
+#loginBtn:hover {
+    background-color: #218838;
+    box-shadow: 0px 0px 12px rgba(33, 136, 56, 0.8);
+}
+
+/* Стиль для кнопки "Регистрация" с бордером */
+#registrBtn {
+    border: 2px solid white;
+}
+
+/* Заголовки */
+h1 {
+    text-align: center;
+}
+
+
+/* Стили для таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-type1{
+    margin-bottom: 100px; /* Отступ после таблицы */
+}
+
+/* Стиль для данных клиента */
+.table-type2 {
+
+    width: 600px;
+    padding-left: 50px; /* Левый отступ для компактного расположения */
+    border-collapse: collapse;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.table-type2 th, .table-type2 td {
+    padding: 8px 12px; /* Уменьшенные отступы для компактности */
+}
+
+.table-type2 th {
+    background-color: #007bff;
+    color: #fff;
+    text-align: left;
+    font-weight: 600;
+}
+
+.table-type2 td {
+    border-bottom: 1px solid #ddd;
+    text-align: center; 
+}
+
+.table-type2 tr:last-child td {
+    border: none;
+}
+
+.table-type2 td img {
+    max-width: 200px; /* Максимальная ширина изображения */
+    max-height: 120px; /* Максимальная высота изображения */
+    border-radius: 8px; /* Слегка скругленные углы */
+    object-fit: cover; /* Масштабирование изображения с сохранением пропорций */
+}
+
+
+/* Для курсача 
+
+
+.image-upload-container {
+    text-align: center;
+}
+
+.image-upload-container h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+.image-upload-container form {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.image-upload-container form input[type="file"] {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.image-upload-container .button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+}
+
+.image-upload-container .button-group button {
+    flex: 1;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.image-upload-container .button-group button:hover {
+    background-color: #45a049;
+}
+
+.image-upload-container .button-group .delete-btn {
+    background-color: #f44336;
+}
+
+.image-upload-container .button-group .delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+*/
+.button-group-image-upload-container {
+    display: flex;
+    gap: 10px; /* Расстояние между кнопками */
+}
+
+.error-ulode-file {
+    color: #ff0000;
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+}
+
+.errors_default_image{
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+}
+
+/* Кнопки */
+
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Стиль для кнопок "Редактировать" и "Удалить" */
+.btn-edit, .btn-delete {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-right: 8px; /* Разделение между кнопками */
+}
+
+/* Стиль для кнопки "Редактировать" */
+.btn-edit {
+    background-color: #007bff; /* Синий цвет */
+}
+
+.btn-edit:hover {
+    background-color: #0056b3; /* Темнее при наведении */
+    transform: scale(1.05); /* Увеличение на 5% при наведении */
+}
+
+.btn-edit:active {
+    background-color: #007bff; /* Темно-синий при нажатии */
+    transform: scale(1); /* Сброс масштабирования */
+}
+
+/* Стиль для кнопки "Удалить" */
+.btn-delete {
+    background-color: #dc3545; /* Красный цвет */
+}
+
+.btn-delete:hover {
+    background-color: #c82333; /* Темнее при наведении */
+    transform: scale(1.05); /* Увеличение на 5% при наведении */
+}
+
+.btn-delete:active {
+    background-color: #bd2130; /* Темно-красный при нажатии */
+    transform: scale(1); /* Сброс масштабирования */
+}
+
+/* Синяя кнопка*/
+/* Основной стиль для кнопки "Добавить новый сеанс" */ 
+#addAppointment1 {
+    background-color: #007bff; /* Зеленый для привлечения внимания */
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Легкая тень для глубины */
+}
+
+#addAppointment1:hover {
+    background-color: #007bff; /* Более темный зеленый при наведении */
+    transform: translateY(-3px); /* Поднимаем кнопку при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Увеличиваем тень */
+}
+
+#addAppointment1:active {
+    background-color: #007bff; /* Темно-зеленый при нажатии */
+    transform: translateY(1px); /* Слегка опускаем */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Уменьшаем тень */
+}
+
+
+/* Зелёная кнопка*/
+
+#editClientData1{
+    margin-top: 30px;
+    background-color: #28a745; /* Зеленый для привлечения внимания */
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Легкая тень для глубины */
+}
+
+#editClientData1:hover {
+    background-color: #218838; /* Более темный зеленый при наведении */
+    transform: translateY(-3px); /* Поднимаем кнопку при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Увеличиваем тень */
+}
+
+#editClientData1:active {
+    background-color: #1e7e34; /* Темно-зеленый при нажатии */
+    transform: translateY(1px); /* Слегка опускаем */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Уменьшаем тень */
+}
+
+
+
+/* ------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+/* Поисковая форма */
+.search-form {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.search-form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+.search-form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+}
+.search-form button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/* Основные стили для модального окна обновления информации о клиенте */
+.update-info-client-modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Уменьшаем затемнение */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Содержимое модального окна обновления информации о клиенте */
+.update-info-client-modal-content {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 450px; /* Ограничение по ширине */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    animation: slide-down 0.3s ease-out;
+    position: relative;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.update-info-client-modal h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+.update-info-client-modal label {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0 5px;
+    display: block;
+}
+
+
+
+.update-info-client-modal input[type="text"],
+.update-info-client-modal input[type="email"],
+.update-info-client-modal input[type="datetime-local"],
+.update-info-client-modal select {
+    width: 95%;
+    padding: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+}
+
+.update-info-client-modal input[type="text"]:focus,
+.update-info-client-modal input[type="email"]:focus,
+.update-info-client-modal select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.update-info-client-modal button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.update-info-client-modal button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.update-info-client-modal .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.update-info-client-modal .close:hover {
+    color: #333;
+}
+
+.update-info-client-modal small.error {
+    color: #d9534f;
+    font-size: 12px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    display: block;
+}

@@ -1,0 +1,15 @@
+digraph G {
+"C:/xampp/htdocs/lawyers_site/app/controllers/AuthController.php" [label="AuthController.php"];
+"C:/xampp/htdocs/lawyers_site/app/core/db.php" [label="db.php"];
+"C:/xampp/htdocs/lawyers_site/app/helpers/auth.php" [label="auth.php"];
+"C:/xampp/htdocs/lawyers_site/app/models/Appointment.php" [label="Appointment.php"];
+"C:/xampp/htdocs/lawyers_site/app/models/Lawyer.php" [label="Lawyer.php"];
+"C:/xampp/htdocs/lawyers_site/app/models/User.php" [label="User.php"];
+"C:/xampp/htdocs/lawyers_site/app/views/auth/login.php" [label="login.php"];
+"C:/xampp/htdocs/lawyers_site/app/views/auth/register.php" [label="register.php"];
+"C:/xampp/htdocs/lawyers_site/app/views/dashboard/admin.php" [label="admin.php"];
+"C:/xampp/htdocs/lawyers_site/app/views/dashboard/appointment.php" [label="appointment.php"];
+"C:/xampp/htdocs/lawyers_site/app/views/dashboard/client.php" [label="client.php"];
+"C:/xampp/htdocs/lawyers_site/app/views/dashboard/lawyer.php" [label="lawyer.php"];
+"start" -> "C:/xampp/htdocs/lawyers_site/app/controllers/AuthController.php";
+}
