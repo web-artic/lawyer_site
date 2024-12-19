@@ -103,6 +103,7 @@ footer {
 .loginmodal p,
 .loginmodal input[type="text"],
 .loginmodal input[type="password"],
+.loginmodal input[type="email"],
 .loginmodal button[type="submit"] {
     width: 80%;
     margin: 10px auto; /* Центрирует элементы внутри формы */
@@ -110,6 +111,7 @@ footer {
 }
 
 .loginmodal input[type="text"],
+.loginmodal input[type="email"],
 .loginmodal input[type="password"] {
     padding: 10px;
     border: 1px solid #ccc;

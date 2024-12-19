@@ -1,0 +1,39 @@
+digraph G {
+    node [shape=box];
+
+    // Контроллеры
+    "AuthController" [label="AuthController\n- login()\n- register()"];
+    
+    // Ядро системы
+    "db" [label="db\n- connect()"];
+    "auth" [label="auth\n- checkUser()"];
+
+    // Модели
+    "User" [label="User\n- id\n- username\n- password\n- role"];
+    "Lawyer" [label="Lawyer\n- id\n- name\n- specialization"];
+    "Appointment" [label="Appointment\n- id\n- client_id\n- lawyer_id\n- date"];
+
+    // Представления
+    "login" [label="login.php"];
+    "register" [label="register.php"];
+    "admin" [label="admin.php"];
+    "appointment_view" [label="appointment.php"];
+    "client_view" [label="client.php"];
+    "lawyer_view" [label="lawyer.php"];
+
+    // Связи
+    "AuthController" -> "User" [label="uses"];
+    "AuthController" -> "db" [label="connects"];
+    "AuthController" -> "auth" [label="calls"];
+    
+    "User" -> "db" [label="connects"];
+    "Lawyer" -> "db" [label="connects"];
+    "Appointment" -> "db" [label="connects"];
+
+    "login" -> "AuthController" [label="calls"];
+    "register" -> "AuthController" [label="calls"];
+    "admin" -> "AuthController" [label="calls"];
+    "appointment_view" -> "Appointment" [label="uses"];
+    "client_view" -> "User" [label="uses"];
+    "lawyer_view" -> "Lawyer" [label="uses"];
+}

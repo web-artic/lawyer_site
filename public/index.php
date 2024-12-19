@@ -24,8 +24,10 @@ if ($action === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['form
     if ($error) echo $error;
 } elseif ($action === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['form_type'] === 'form_reg') {
     $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
-    $message = $authController->register($username, $password);
+    $confirmationToken = bin2hex(random_bytes(16)); // Генерация токена
+    $message = $authController->register($username, $password, $email, $confirmationToken);
     echo $message;
 } elseif ($action === 'logout' && $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['form_type'] === 'logout') {
     $authController->logout();
@@ -138,6 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['form_type'] === 'form_client
             color: #004085;
         }
     </style>
+    
     </head>
     <body>
         <header>
@@ -174,7 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['form_type'] === 'form_client
         </header>
 
         <main>
-
             <section id="services">
                 <h2>Наши услуги</h2>
                 <div class="services">

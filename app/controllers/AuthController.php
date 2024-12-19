@@ -23,12 +23,18 @@ class AuthController {
         }
     }
 
-    public function register($username, $password) {
+    public function register($username, $password, $email, $confirmationToken ) {
         if ($this->userModel->findUserByUsername($username)) {
             return "Пользователь с таким именем уже существует.";
         }
-        $this->userModel->createUser($username, $password);
-        return "Регистрация успешна. Войдите в систему.";
+        if($this->userModel->createUser($username, $password, $email, $confirmationToken)){
+            return "Ошибка";
+        }
+        else{
+            return "Регистрация прошла успешно. Авторизируйтесь в личном кабинете";
+            //  return "Регистрация прошла успешно. Проверьте свою почту для подтверждения.";
+        }
+        
     }
 
     public function logout() {

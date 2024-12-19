@@ -73,6 +73,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['form_type'] === 'update_wei
     }
     header('Location: /app/views/dashboard/admin.php?success-rel');
 }
+
+// Получаем данные из формы
+$dataType = $_POST['data_type'] ?? 'clients_count'; // По умолчанию показываем количество клиентов
+$chartType = $_POST['chart_type'] ?? 'bar'; // По умолчанию тип диаграммы - столбчатая
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['form_type'] === 'diagrams'){
+
+// Получаем данные для диаграммы в зависимости от выбранного параметра
+try {
+    if ($dataType == 'appointments_count') {
+        $stmt = $pdo->query("SELECT lawyer_name, COUNT(id) AS appointment_count FROM appointments GROUP BY lawyer_name");
+    } elseif ($dataType == 'clients_count') {
+        $stmt = $pdo->query("SELECT lawyer_name, COUNT(id) AS appointment_count FROM appointments GROUP BY service");
+    }
+    $chartData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Массив данных для графика
+    $chartSeries = [];
+    foreach ($chartData as $row) {
+        $chartSeries[] = [
+            'name' => $row['lawyer_name'], // Имя адвоката
+            'y' => (int)$row[$dataType == 'clients_count' ? 'client_count' : 'appointment_count'] // Количество клиентов или встреч
+        ];
+    }
+} catch (PDOException $e) {
+    logError("Ошибка выполнения запроса: " . $e->getMessage());
+}
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -82,6 +112,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['form_type'] === 'update_wei
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Личный кабинет администратора</title>
         <link rel="stylesheet" href="/public/css/style.css">
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <style>
+            .chart-form {
+                background-color: #f4f7fc; 
+                border-radius: 8px;
+                padding: 20px;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 0;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            }
+
+            .chart-form label {
+                font-size: 1.1em;
+                color: #333;
+                margin-bottom: 8px;
+                display: block;
+                font-weight: bold;
+            }
+
+            .form-select {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1em;
+                background-color: #fff;
+                color: #333;
+                transition: all 0.3s ease;
+            }
+
+            .form-select:focus {
+                border-color: #5f9ea0; /* Цвет при фокусе */
+                outline: none;
+                box-shadow: 0 0 5px rgba(95, 158, 160, 0.5); /* Легкий эффект при фокусе */
+            }
+
+            .form-submit {
+                background-color: #5f9ea0; /* Цвет кнопки */
+                color: #fff;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 4px;
+                font-size: 1.1em;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                width: 100%;
+            }
+
+            .form-submit:hover {
+                background-color: #468a7d; /* Цвет кнопки при наведении */
+            }
+            .registration-form{
+                margin-bottom: auto;
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -99,6 +186,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['form_type'] === 'update_wei
         </header>
         <main>
             <h1>Личный кабинет администратора</h1>
+            
+            <h2>Выберите данные для отображения на диаграмме</h2>
+            <form method="POST" class="chart-form">
+                <input type="hidden" name="form_type" value="diagrams">
+
+                <label for="data_select">Выберите данные:</label>
+                <select id="data_select" name="data_type" class="form-select">
+                    <option value="appointments_count">Количество клиентов</option>
+                    <!-- Добавьте другие варианты по мере необходимости -->
+                </select>
+
+                <label for="chart_type">Выберите тип диаграммы:</label>
+                <select id="chart_type" name="chart_type" class="form-select">
+                    <option value="bar">Столбчатая</option>
+                    <option value="line">Линейная</option>
+                    <option value="pie">Круговая</option>
+                </select>
+
+                <button type="submit" class="form-submit">Показать диаграмму</button>
+            </form>
+            <h2>График статистики</h2>
+            <div id="clientsChart" style="width: 900px; height: 450px;"></div>
+
             <h2>Настройка весов ранжирования</h2>
 
             <form method="POST">
@@ -166,8 +276,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['form_type'] === 'update_wei
             <?php endif; ?>
         </main>
         <script src="/public/js/exit-session.js"></script>
+        <script>
+            // Данные для диаграммы, которые получаем из PHP
+            var chartSeries = <?= json_encode($chartSeries) ?>; // Массив данных с именами адвокатов и количеством клиентов
+            var chartType = "<?= $chartType ?>"; // Получаем тип диаграммы из PHP
+
+            // Определение параметров диаграммы для Highcharts
+            var chartOptions = {
+                chart: {
+                    type: chartType, // Тип диаграммы (bar, line, pie)
+                },
+                credits: {
+                    enabled: false  // Отключаем подпись автора
+                },
+                title: {
+                    text: chartType == 'pie' ? 'Распределение клиентов' : 'Количество клиентов по адвокатам'
+                },
+                xAxis: {
+                    categories: chartSeries.map(function (item) { return item.name; }), // Имя адвокатов для оси X
+                    title: {
+                        text: 'Адвокаты'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: chartType == 'pie' ? '' : 'Количество'
+                    }
+                },
+                series: [{
+                    name: 'Клиенты',
+                    data: chartSeries, // Используем массив данных, полученный из PHP
+                    colorByPoint: chartType == 'pie', // Для круговой диаграммы раскрасить по точкам
+                }],
+                tooltip: {
+                    pointFormat: chartType == 'pie' ? '{point.name}: {point.y} клиентов' : '{point.y} клиентов'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true, // Включаем отображение подписей
+                            format: '{point.name}: {point.y} клиента', // Формат подписи
+                            style: {
+                                fontWeight: 'bold', // Делаем подписи жирными
+                                color: 'black', // Черный цвет текста
+                                fontSize: '14px' // Размер шрифта
+                            }
+                        }
+                    },
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                }
+            };
+
+            // Инициализация диаграммы
+            Highcharts.chart('clientsChart', chartOptions);
+        </script>
     </body>
-    <footer>
-        <p>&copy; 2024 Адвокатская компания</p>
-    </footer>
 </html>
